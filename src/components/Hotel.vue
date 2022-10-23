@@ -1,0 +1,333 @@
+<template>
+  <div class="form-content">
+    <div class="form-list">
+      <div class="input-item">
+        <div class="input-name">
+          <i>*</i> 1、服务设施名称<span>（字数限制12个）</span>
+        </div>
+        <input
+          class="input-info"
+          type="text"
+          maxlength="12"
+          v-model="options.name"
+        />
+      </div>
+      <div class="input-item">
+        <div class="input-name">
+          <i>*</i> 2、亮点介绍<span>（字数限制10-52个）</span>
+        </div>
+        <input
+          maxlength="52"
+          class="input-info"
+          type="text"
+          v-model="options.des"
+          v-on:blur="onInputBlur('des')"
+        />
+      </div>
+      <div class="input-item">
+        <div class="input-name">
+          <i>*</i> 3、开放时间<span>（字数最多18个）</span>
+        </div>
+        <input
+          maxlength="18"
+          class="input-info"
+          type="text"
+          v-model="options.time"
+        />
+      </div>
+      <div class="input-item">
+        <div class="input-name">
+          <i>*</i> 4、位置<span>（字数最多18个）</span>
+        </div>
+        <input
+          maxlength="18"
+          class="input-info"
+          type="text"
+          v-model="options.address"
+        />
+      </div>
+      <div class="input-item">
+        <div class="input-name">
+          <i>*</i> 5、补充信息<span
+            >（如是否收费、是否需要预约、前台电话等，字数最多36个）</span
+          >
+        </div>
+        <textarea
+          maxlength="36"
+          class="input-info"
+          type="text"
+          v-model="options.other"
+        />
+      </div>
+      <div class="input-item">
+        <div class="input-name">
+          <i>*</i>6、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
+        </div>
+
+        <div class="upload-file custom-btn btn-4">
+          <input
+            type="file"
+            class="input-file"
+            @change="handleSuccess"
+            multiple="true"
+          />
+          <span class="tip" id="hotel-tip">点击上传图片</span>
+        </div>
+      </div>
+      <button class="custom-btn btn-11" @click="saveImgToBoard">
+        {{ saveStatus ? "已保存" : "保存" }}
+      </button>
+      <button
+        v-if="id !== 'hotel'"
+        class="custom-btn btn-2"
+        @click="removeSection"
+      >
+        删除模块
+      </button>
+    </div>
+    <div class="img-box">
+      <img :id="'hotel-' + id" class="item-img" src="" alt="" />
+    </div>
+  </div>
+</template>
+
+<script>
+import * as utils from "../utils/toast";
+export default {
+  name: "Hotel",
+  props: {
+    id: "",
+    itemIndex:''
+  },
+  data() {
+    return {
+      saveStatus: false,
+      options: {
+        des: "",
+        name: "",
+        address: "",
+        time: "",
+        other: "",
+        img_url: "../../asset/blank.png",
+      },
+    };
+  },
+  watch: {
+    options: {
+      deep: true,
+      handler() {
+        this.drawImg();
+        this.saveStatus = false;
+      },
+    },
+  },
+  mounted() {
+    this.drawImg();
+  },
+  methods: {
+    drawImg() {
+      const data = {
+        width: 750,
+        height: 1165,
+        quality: 1,
+        ratio: 2,
+        output: "png",
+        elements: [
+          {
+            type: "img",
+            x: 0,
+            y: 0,
+            width: 750,
+            height: 1165,
+            radius: 0,
+            content: "../../asset/hotel.png",
+          },
+          {
+            type: "text",
+            x: 68,
+            y: 148,
+            width: 608,
+            autoHeight: true,
+            lineHeight: 1.6,
+            letterSpacing: "1px",
+            fontSize: 36,
+            bold: 800,
+            color: "#333",
+            fontFamily: '"buer"',
+            content: this.options.des,
+          },
+          {
+            type: "img",
+            x: 67.5,
+            y: 342,
+            width: 615,
+            height: 461.25,
+            content: this.options.img_url,
+          },
+
+          {
+            type: "text",
+            x: 66,
+            y: 840,
+            width: 608,
+            autoHeight: true,
+            lineHeight: 1.6,
+            letterSpacing: "1px",
+            fontSize: 36,
+            bold: 800,
+            color: "#333",
+            fontFamily: '"buer"',
+            content: this.options.name,
+          },
+          {
+            type: "text",
+            x: 130,
+            y: 967,
+            width: 480,
+            autoHeight: true,
+            lineHeight: 1.6,
+            letterSpacing: "1px",
+            fontSize: 22,
+            color: "#333",
+            fontFamily: '"buer-b"',
+            content: this.options.time,
+          },
+
+          {
+            type: "text",
+            x: 130,
+            y: 1004,
+            width: 480,
+            autoHeight: true,
+            lineHeight: 1.6,
+            letterSpacing: "1px",
+            fontSize: 22,
+            color: "#333",
+            fontFamily: '"buer-b"',
+            content: this.options.address,
+          },
+
+          {
+            type: "text",
+            x: 130,
+            y: 1043,
+            width: 480,
+            autoHeight: true,
+            lineHeight: 1.6,
+            letterSpacing: "1px",
+            fontSize: 22,
+            color: "#333",
+            fontFamily: '"buer-b"',
+            content: this.options.other,
+          },
+        ],
+      };
+      var img = document.getElementById("hotel-" + this.id);
+      json2image(
+        data,
+        (url) => {
+          img.src = url;
+        },
+        (err) => console.error(err)
+      );
+    },
+
+    handleSuccess(e) {
+      const file = e.target.files[0];
+      if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
+        utils.default.showToast({ title: "图片类型要求：jpeg、jpg、png" });
+        return false;
+      }
+      if (file.size / (1024 * 1024) > 2) {
+        utils.default.showToast({ title: "图片大小不超过3M" });
+        return false;
+      }
+      var reader = new FileReader();
+      reader.onload = (data) => {
+        this.options.img_url = data.target.result;
+        var tip = document.querySelector("#hotel-tip");
+        tip.textContent = file.name;
+      };
+      reader.readAsDataURL(file);
+    },
+    onInputBlur(type) {
+      switch (type) {
+        case "des":
+          if (this.options.des.length < 10) {
+            utils.default.showToast({ title: "亮点介绍至少要10个字" });
+          }
+          break;
+      }
+    },
+    removeSection() {
+      this.$emit("removeSection", { type: "hotel", id: this.id });
+    },
+    saveImgToBoard() {
+      const options = this.options;
+      for (var i in options) {
+        if (
+          options[i] === "" ||
+          options["img_url"] === "../../asset/blank.png" ||
+          options["des"].length < 10
+        ) {
+          utils.default.showToast({ title: "每一项都需要按规则填写哦" });
+          return;
+        }
+      }
+      if (!this.saveStatus) {
+        this.$emit("saveImgToBoard", {
+          id: "hotel-" + this.id,
+          options: this.options, 
+          name:`酒店特色服务${this.itemIndex===0?'':this.itemIndex}`
+        });
+        utils.default.showToast({ title: "保存成功" });
+        this.saveStatus = true;
+      } else {
+        utils.default.showToast({
+          title: "当前图片已经保存过了，请重新修改后重试",
+        });
+      }
+    },
+  },
+};
+</script>
+
+<style>
+.upload-file {
+  position: relative;
+  width: 120px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: rgb(245, 95, 55);
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: bolder;
+  text-align: center;
+  overflow: hidden;
+  margin: 10px 0;
+}
+
+.upload-file span {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  color: #fff;
+}
+
+.upload-file:hover {
+  font-size: 14px;
+  border: none;
+}
+
+.upload-file input[type="file"] {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  opacity: 0;
+  filter: alpha(opacity=0);
+  cursor: pointer;
+}
+</style>
