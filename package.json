@@ -5,7 +5,6 @@
     "start": "vite",
     "build": "vite build",
     "force": "vite -force",
-    "predeploy": "yarn build",
     "deploy": "gh-pages -d dist https://github.com/GaryBeacher/localLife.git -b gh-pages"
   },
   "dependencies": {
