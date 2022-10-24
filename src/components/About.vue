@@ -63,7 +63,7 @@ export default {
       options: {
         point: "",
         des: "",
-        img_url: "../../asset/blank.png",
+        img_url: "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png",
       },
     };
   },
@@ -95,7 +95,7 @@ export default {
             width: 750,
             height: 1150,
             radius: 0,
-            content: "../../asset/about.png",
+            content: "https://fp.yangcong345.com/middle/1.0.0/asset/about.png",
           },
           {
             type: "text",
@@ -186,7 +186,7 @@ export default {
       for (var i in options) {
         if (
           options[i] === "" ||
-          options["img_url"] === "../../asset/blank.png" ||
+          options["img_url"] === "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
           options["des"].length < 50 ||
           options["point"].length < 10
         ) {

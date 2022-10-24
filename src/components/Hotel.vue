@@ -108,7 +108,7 @@ export default {
         address: "",
         time: "",
         other: "",
-        img_url: "../../asset/blank.png",
+        img_url: "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png",
       },
     };
   },
@@ -140,7 +140,7 @@ export default {
             width: 750,
             height: 1165,
             radius: 0,
-            content: "../../asset/hotel.png",
+            content: "https://fp.yangcong345.com/middle/1.0.0/asset/hotel.png",
           },
           {
             type: "text",
@@ -267,7 +267,7 @@ export default {
       for (var i in options) {
         if (
           options[i] === "" ||
-          options["img_url"] === "../../asset/blank.png" ||
+          options["img_url"] === "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
           options["des"].length < 10
         ) {
           this.$toast("每一项都需要按规则填写哦");

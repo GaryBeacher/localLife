@@ -338,7 +338,7 @@ export default {
                 width: 1420,
                 height: 455,
                 radius: 0,
-                content: "../asset/hotelBoard.jpg",
+                content: "https://fp.yangcong345.com/middle/1.0.0/asset/hotelBoard.jpg",
               },
               {
                 type: "text",
@@ -442,7 +442,7 @@ export default {
                 width: 1420,
                 height: 455,
                 radius: 0,
-                content: "../asset/aroundBoard.jpg",
+                content: "https://fp.yangcong345.com/middle/1.0.0/asset/aroundBoard.jpg",
               },
               {
                 type: "text",
@@ -574,7 +574,7 @@ export default {
                 width: 1420,
                 height: 455,
                 radius: 0,
-                content: "../asset/signInBoard.jpg",
+                content: "https://fp.yangcong345.com/middle/1.0.0/asset/signInBoard.jpg",
               },
               {
                 type: "text",
@@ -693,7 +693,7 @@ export default {
               width: 1701,
               height: 2551,
               radius: 0,
-              content: "../asset/board-bg.jpg",
+              content: "https://fp.yangcong345.com/middle/1.0.0/asset/board-bg.jpg",
             },
             {
               type: "text",

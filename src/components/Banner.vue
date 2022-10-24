@@ -1,6 +1,6 @@
 <template>
   <div class="section banner-img" id='banner'>
-    <img src="../../asset/banner.png" alt="" />
+    <img src="https://fp.yangcong345.com/middle/1.0.0/asset/banner.png" alt="" />
   </div>
 </template>
 
