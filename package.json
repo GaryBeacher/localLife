@@ -5,13 +5,17 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "predeploy": "yarn build",
+    "deploy": "gh-pages -d dist https://github.com/GaryBeacher/localLife.git -b gh-pages"
   },
   "dependencies": {
     "core-js": "^3.8.3",
-    "vue": "^2.6.14",
     "file-saver": "^2.0.5",
-    "json2image": "^0.1.3"
+    "gh-pages": "^4.0.0",
+    "json2image": "^0.1.3",
+    "jszip": "^3.10.1",
+    "vue": "^2.6.14"
   },
   "devDependencies": {
     "@babel/core": "^7.12.16",
