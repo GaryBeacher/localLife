@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div class="left-menu" v-if='isfixTab'>
+    <div class="left-menu" v-if="isfixTab">
       <a
         :href="'#' + item.id"
         class="action"
         v-for="item in hotelArr"
-        :key="item.name"
+        :key="item.id + Math.random()"
       >
         {{ item.name }}
       </a>
@@ -13,7 +13,7 @@
         :href="'#' + item.id"
         class="action"
         v-for="item in aroundArr"
-        :key="item.name"
+        :key="item.id + Math.random()"
       >
         {{ item.name }}
       </a>
@@ -21,7 +21,7 @@
         :href="'#' + item.id"
         class="action"
         v-for="item in signInArr"
-        :key="item.name"
+        :key="item.id + Math.random()"
       >
         {{ item.name }}
       </a>
@@ -54,9 +54,9 @@
       酒店特色服务
       <div class="add-new" @click="addSection('hotel')">新增模块</div>
     </h1>
-    <template v-for="(item, index) in hotelArr" :key="item">
-      <h2>{{ item.name }}</h2>
-      <div class="section" :id="item.id">
+    <template v-for="(item, index) in hotelArr">
+      <h2 :key="item.id + Math.random()">{{ item.name }}</h2>
+      <div class="section" :id="item.id" :key="item.id + Math.random()">
         <Hotel
           :id="item.id"
           :itemIndex="index"
@@ -65,15 +65,21 @@
           @saveImgToBoard="saveImgToBoard"
         />
       </div>
-      <hr align="center" width="80%" color="#ccc" SIZE="1" />
+      <hr
+        align="center"
+        width="80%"
+        color="#ccc"
+        SIZE="1"
+        :key="item.id + Math.random()"
+      />
     </template>
     <h1 class="module-title">
       周边吃喝玩乐
       <div class="add-new" @click="addSection('around')">新增模块</div>
     </h1>
-    <template v-for="(item, index) in aroundArr" :key="item">
-      <h2>{{ item.name }}</h2>
-      <div class="section" :id="item.id">
+    <template v-for="(item, index) in aroundArr">
+      <h2 :key="item.id + Math.random()">{{ item.name }}</h2>
+      <div class="section" :id="item.id" :key="item.id + Math.random()">
         <Around
           :id="item.id"
           :itemIndex="index"
@@ -82,15 +88,21 @@
           @saveImgToBoard="saveImgToBoard"
         />
       </div>
-      <hr align="center" width="80%" color="#ccc" SIZE="1" />
+      <hr
+        align="center"
+        width="80%"
+        color="#ccc"
+        SIZE="1"
+        :key="item.id + Math.random()"
+      />
     </template>
     <h1 class="module-title">
       城市必打卡
       <div class="add-new" @click="addSection('signIn')">新增模块</div>
     </h1>
-    <template v-for="(item, index) in signInArr" :key="item">
-      <h2>{{ item.name }}</h2>
-      <div class="section" :id="item.id">
+    <template v-for="(item, index) in signInArr">
+      <h2 :key="item.id + Math.random()">{{ item.name }}</h2>
+      <div :key="item.id + Math.random()" class="section" :id="item.id">
         <SignIn
           :id="item.id"
           :itemIndex="index"
@@ -99,7 +111,13 @@
           @saveImgToBoard="saveImgToBoard"
         />
       </div>
-      <hr align="center" width="80%" color="#ccc" SIZE="1" />
+      <hr
+        align="center"
+        :key="item.id + Math.random()"
+        width="80%"
+        color="#ccc"
+        SIZE="1"
+      />
     </template>
     <div class="section">
       <button class="custom-btn btn-4 submit" @click="createBoardList">
@@ -112,7 +130,7 @@
         <div class="board-list-box">
           <div
             v-for="item in boardList"
-            :key="item.id"
+            :key="item.id + Math.random()"
             @click="changeChecked(item)"
             :class="{
               'swiper-slide': true,
@@ -145,7 +163,8 @@ import Hotel from "./components/Hotel.vue";
 import Around from "./components/Around.vue";
 import MyCheckBox from "./components/MyCheckBox.vue";
 import SignIn from "./components/SignIn.vue";
-import * as utils from "./utils/toast";
+import json2image from "./utils/index";
+
 let time = true;
 export default {
   name: "app",
@@ -177,13 +196,12 @@ export default {
         window.pageYOffset ||
         document.documentElement.scrollTop ||
         document.body.scrollTop;
-      var banner = document.querySelector("#banner").clientHeight; 
+      var banner = document.querySelector("#banner").clientHeight;
       scrollTop > banner ? (this.isfixTab = true) : (this.isfixTab = false);
     },
     addSection(type) {
       if (time) {
         time = false;
-        let i;
         if (type === "hotel") {
           const hotelId = Math.round(Math.random() * 1000000);
           const len = this.hotelArr.length;
@@ -208,6 +226,7 @@ export default {
             name: "城市必打卡" + len,
           });
         }
+        this.$toast("创建成功");
       }
       setTimeout(function () {
         time = true;
@@ -233,19 +252,19 @@ export default {
         remove(this.signInArr, id);
       }
     },
-    saveImgToDownLoad({ id, options,name }) {
+    saveImgToDownLoad({ id, options, name }) {
       var img = document.getElementById(id);
       const item = {
         id,
         options,
         src: img.getAttribute("src"),
         checked: false,
-        name
+        name,
       };
       if (id === "aboutImg") {
         this.about = [item];
       } else {
-        this.baseInfo = [item];  
+        this.baseInfo = [item];
       }
     },
     saveImgToBoard({ id, options, name }) {
@@ -270,24 +289,18 @@ export default {
     },
     createBoardList() {
       if (this.about.length === 0) {
-        utils.default.showToast({
-          title: "注意：关于本店模块未保存",
-        });
+        this.$toast("注意：关于本店模块未保存");
         return;
       }
       if (this.baseInfo.length === 0) {
-        utils.default.showToast({
-          title: "注意：基本信息模块未保存",
-        });
+        this.$toast("注意：基本信息模块未保存");
         return;
       }
       if (
         this.aroundArr.length + this.signInArr.length + this.hotelArr.length !==
         this.boardList.length
       ) {
-        utils.default.showToast({
-          title: "注意：有模块尚未保存完毕",
-        });
+        this.$toast("注意：有模块尚未保存完毕");
         return;
       } else {
         this.showBoardList = true;
@@ -296,9 +309,7 @@ export default {
     makeBoard() {
       this.showDownload = true;
       if (this.selectedBoards.length < 3) {
-        utils.default.showToast({
-          title: "必须要选择三个哦～",
-        });
+        this.$toast("必须要选择三个哦～");
         return;
       }
       let optionsArr = [];
@@ -756,15 +767,11 @@ export default {
         (i) => i.indexOf("hotel") != -1
       );
       if (this.selectedBoards.length === 3 && !_key) {
-        utils.default.showToast({
-          title: "已经选择三个展板，请取消后再次选择",
-        });
+        this.$toast("已经选择三个展板，请取消后再次选择");
         return;
       }
       if (hasHotel && item.id.indexOf("hotel") != -1) {
-        utils.default.showToast({
-          title: "酒店特色服务最多只能选择一个模块哦",
-        });
+        this.$toast("酒店特色服务最多只能选择一个模块哦");
         return;
       }
       this.boardList.map((i) => {
@@ -818,7 +825,7 @@ export default {
             FileSaver.saveAs(content, this.baseInfo[0].options.hotelName);
           });
         })
-        .catch((res) => {
+        .catch(() => {
           console.error("文件压缩失败");
         });
     },

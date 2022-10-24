@@ -1,23 +1,46 @@
 {
-  "name": "live-around",
-  "version": "0.0.1",
+  "name": "vuepages",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "start": "vite",
-    "build": "vite build",
-    "force": "vite -force",
-    "deploy": "gh-pages -d dist https://github.com/GaryBeacher/localLife.git -b gh-pages"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "core-js": "^3.8.3",
+    "vue": "^2.6.14",
     "file-saver": "^2.0.5",
-    "json2image": "^0.1.3",
-    "jszip": "^3.10.1",
-    "vue": "^3.0.4"
+    "json2image": "^0.1.3"
   },
   "devDependencies": {
-    "@types/file-saver": "^2.0.5",
-    "@vue/compiler-sfc": "^3.0.4",
-    "gh-pages": "^4.0.0",
-    "vite": "^1.0.0-rc.13"
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "eslint": "^7.32.0",
+    "eslint-plugin-vue": "^8.0.3",
+    "vue-template-compiler": "^2.6.14"
   },
-  "license": "GPL-3.0"
+  "eslintConfig": {
+    "root": false,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential",
+      "eslint:recommended"
+    ],
+    "parserOptions": {
+      "parser": "@babel/eslint-parser",
+      "requireConfigFile": false
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
 }

@@ -7,7 +7,9 @@
 <script>
 export default {
   name: "Banner",
-  data() {},
+  data() {
+    return{}
+  },
   methods: {},
 };
 </script>

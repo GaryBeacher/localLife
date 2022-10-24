@@ -1,6 +1,6 @@
 import { createApp } from "vue";
 import Toast from "../components/Toast.vue";
-export default {
+export  const toast= {
   instance: null,
   parent: document.createElement("div"),
   showToast({ title, duration = 2000, mask = false }) {

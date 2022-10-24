@@ -116,7 +116,7 @@
 
 <script>
 //使用
-import * as utils from "../utils/toast";
+ 
 
 export default {
   name: "SignIn",
@@ -289,11 +289,11 @@ export default {
     handleSuccess(e) {
       const file = e.target.files[0];
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
-        utils.default.showToast({ title: "图片类型要求：jpeg、jpg、png" });
+        this.$toast("图片类型要求：jpeg、jpg、png" );
         return false;
       }
       if (file.size / (1024 * 1024) > 2) {
-        utils.default.showToast({ title: "图片大小不超过3M" });
+        this.$toast("图片大小不超过3M" );
         return false;
       }
       var reader = new FileReader();
@@ -309,7 +309,7 @@ export default {
       switch (type) {
         case "des":
           if (this.options.des.length < 10) {
-            utils.default.showToast({ title: "亮点介绍至少要10个字" });
+            this.$toast("亮点介绍至少要10个字" );
           }
           break;
       }
@@ -325,7 +325,7 @@ export default {
           options["img_url"] === "../../asset/blank.png" ||
           options["des"].length < 10
         ) {
-          utils.default.showToast({ title: "每一项都需要按规则填写哦" });
+          this.$toast( "每一项都需要按规则填写哦" );
           return;
         }
       }
@@ -336,12 +336,10 @@ export default {
           name: `城市必打卡${this.itemIndex === 0 ? "" : this.itemIndex}`,
         });
 
-        utils.default.showToast({ title: "保存成功" });
+        this.$toast( "保存成功" );
         this.saveStatus = true;
       } else {
-        utils.default.showToast({
-          title: "当前图片已经保存过了，请重新修改后重试",
-        });
+        this.$toast("当前图片已经保存过了，请重新修改后重试");
       }
     },
   },

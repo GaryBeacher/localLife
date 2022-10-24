@@ -40,7 +40,9 @@
             <span class="tip">点击上传图片</span>
           </div>
         </div>
-        <button class="custom-btn btn-11" @click="saveImgToBoard">{{saveStatus?'已保存':'保存'}}</button>
+        <button class="custom-btn btn-11" @click="saveImgToBoard">
+          {{ saveStatus ? "已保存" : "保存" }}
+        </button>
       </div>
       <div class="img-box">
         <img id="aboutImg" class="item-img" src="" alt="" />
@@ -51,10 +53,10 @@
 
 <script>
 //使用
-import * as utils from "../utils/toast";
+ 
 
 export default {
-  name: "About",
+  name: "about",
   data() {
     return {
       saveStatus: false,
@@ -146,12 +148,12 @@ export default {
       switch (type) {
         case "point":
           if (this.options.point.length < 10) {
-            utils.default.showToast({ title: "酒店亮点至少要10个字" });
+            this.$toast("酒店亮点至少要10个字");
           }
           break;
         case "des":
           if (this.options.des.length < 50) {
-            utils.default.showToast({ title: "酒店介绍至少要50个字" });
+            this.$toast("酒店介绍至少要50个字");
           }
           break;
       }
@@ -160,13 +162,13 @@ export default {
       const file = e.target.files[0];
       // 限制上传图片类型
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
-        utils.default.showToast({ title: "图片类型要求：jpeg、jpg、png" });
+        this.$toast("图片类型要求：jpeg、jpg、png");
 
         return false;
       }
       // 图片大小不超过1M
       if (file.size / (1024 * 1024) > 3) {
-        utils.default.showToast({ title: "图片大小不超过3M" });
+        this.$toast("图片大小不超过3M");
         return false;
       }
       // 文件转化base64格式，用于页面预览（或调用接口上传图片，获取图片地址，再赋值
@@ -188,7 +190,7 @@ export default {
           options["des"].length < 50 ||
           options["point"].length < 10
         ) {
-          utils.default.showToast({ title: "每一项都需要按规则填写哦" });
+          this.$toast("每一项都需要按规则填写哦");
           return;
         }
       }
@@ -197,12 +199,10 @@ export default {
           id: "aboutImg",
           options: this.options,
         });
-        utils.default.showToast({ title: "保存成功" });
+        this.$toast("保存成功");
         this.saveStatus = true;
       } else {
-        utils.default.showToast({
-          title: "当前图片已经保存过了，请重新修改后重试",
-        });
+        this.$toast("当前图片已经保存过了，请重新修改后重试");
       }
     },
   },

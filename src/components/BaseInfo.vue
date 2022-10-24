@@ -24,7 +24,9 @@
             v-model="options.hotelAddress"
           />
         </div>
-        <button class="custom-btn btn-11" @click="saveImgToBoard">{{saveStatus?'已保存':'保存'}}</button>
+        <button class="custom-btn btn-11" @click="saveImgToBoard">
+          {{ saveStatus ? "已保存" : "保存" }}
+        </button>
       </div>
       <div class="img-box">
         <img id="baseInfoImg" class="item-img" src="" alt="" />
@@ -34,7 +36,7 @@
 </template>
 
 <script>
-import * as utils from "../utils/toast";
+import { toast } from "../utils/toast";
 export default {
   name: "BaseInfo",
   data() {
@@ -115,7 +117,7 @@ export default {
       const options = this.options;
       for (var i in options) {
         if (options[i] === "") {
-          utils.default.showToast({ title: "每一项都需要按规则填写哦" });
+          this.$toast("每一项都需要按规则填写哦");
           return;
         }
       }
@@ -123,14 +125,13 @@ export default {
         this.$emit("saveImgToDownLoad", {
           id: "baseInfoImg",
           options: this.options,
-          name:'酒店基本信息'
+          name: "酒店基本信息",
         });
-        utils.default.showToast({ title: "保存成功" });
+        this.$toast("保存成功");
+
         this.saveStatus = true;
       } else {
-        utils.default.showToast({
-          title: "当前图片已经保存过了，请重新修改后重试",
-        });
+        this.$toast("当前图片已经保存过了，请重新修改后重试");
       }
     },
   },

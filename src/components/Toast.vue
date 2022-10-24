@@ -1,42 +1,39 @@
+
 <template>
-  <div class="toast-wrap">
-    <div v-if="mask" class="mask"></div>
-    <div class="toast" ref="toast" :style="style">{{ title }}</div>
-  </div>
+  <transition name="fade">
+    <div v-show="visible">{{message}}</div>
+  </transition>
 </template>
 
-<script setup> 
-defineProps({
-  title: { type: String },
-  mask: { type: Boolean },
-}); 
-</script>
-<style>
-.toast-wrap .mask {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 3001;
+<script>
+export default {
+  data () {
+    return {
+      visible: false,
+      message: ''
+    }
+  }
 }
+</script>
 
-.toast-wrap .toast {
+<style scoped>
+div {
   position: fixed;
-  top: 10%;
+  top: 30%;
   left: 50%;
-  transform: translate(-50%);
-  -webkit-transform-origin-y: 0%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: rgb(255, 255, 255);
-  font-size: 16px;
-  line-height: 30px;
+  padding: 5px 20px;
+  color: #fff;
+  background-color: #424242;
+  border-radius: 5px;
   text-align: center;
-  border-radius: 10px;
-  padding: 10px 20px;
-  background: rgba(245, 2, 2, 0.7);
-  z-index: 3000;
+  transform: translate(-50%, -50%);
+}
+/* vue动画过渡效果设置 */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
