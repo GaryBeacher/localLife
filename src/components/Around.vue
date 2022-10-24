@@ -165,7 +165,7 @@ export default {
     drawImg() {
       const data = {
         width: 750,
-        height: 1315,
+        height: 1415,
         quality: 1,
         ratio: 2,
         output: "png",
@@ -175,14 +175,14 @@ export default {
             x: 0,
             y: 0,
             width: 750,
-            height: 1315,
+            height: 1415,
             radius: 0,
-            content: "https://fp.yangcong345.com/middle/1.0.0/asset/around.png",
+            content: "https://fp.yangcong345.com/middle/1.0.0/around_new.png",
           },
           {
             type: "text",
             x: 68,
-            y: 148,
+            y: 248,
             width: 608,
             autoHeight: true,
             lineHeight: 1.6,
@@ -196,7 +196,7 @@ export default {
           {
             type: "text",
             x: 66,
-            y: 357,
+            y: 457,
             width: 492,
             autoHeight: true,
             lineHeight: 1.6,
@@ -210,7 +210,7 @@ export default {
           {
             type: "img",
             x: 67.5,
-            y: 442,
+            y: 532,
             width: 616,
             height: 461.25,
             content: this.options.img_url,
@@ -219,7 +219,7 @@ export default {
           {
             type: "text",
             x: 66,
-            y: 932,
+            y: 1032,
             width: 608,
             autoHeight: true,
             lineHeight: 1.6,
@@ -233,7 +233,7 @@ export default {
           {
             type: "text",
             x: 180,
-            y: 1028,
+            y: 1128,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -247,7 +247,7 @@ export default {
           {
             type: "text",
             x: 180,
-            y: 1065,
+            y: 1165,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -261,7 +261,7 @@ export default {
           {
             type: "text",
             x: 180,
-            y: 1104,
+            y: 1204,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -274,7 +274,7 @@ export default {
           {
             type: "text",
             x: 180,
-            y: 1142,
+            y: 1242,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -288,7 +288,7 @@ export default {
           {
             type: "text",
             x: 180,
-            y: 1181,
+            y: 1281,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -371,41 +371,4 @@ export default {
 </script>
 
 <style>
-.upload-file {
-  position: relative;
-  width: 120px;
-  padding: 10px 15px;
-  border-radius: 5px;
-  background-color: rgb(245, 95, 55);
-  color: rgb(255, 255, 255);
-  font-size: 14px;
-  font-weight: bolder;
-  text-align: center;
-  overflow: hidden;
-  margin: 10px 0;
-}
-
-.upload-file span {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  color: #fff;
-}
-
-.upload-file:hover {
-  font-size: 14px;
-  border: none;
-}
-
-.upload-file input[type="file"] {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  opacity: 0;
-  z-index: 1;
-  filter: alpha(opacity=0);
-  cursor: pointer;
-}
 </style>

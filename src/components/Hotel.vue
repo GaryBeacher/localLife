@@ -128,7 +128,7 @@ export default {
     drawImg() {
       const data = {
         width: 750,
-        height: 1165,
+        height: 1265,
         quality: 1,
         ratio: 2,
         output: "png",
@@ -138,14 +138,14 @@ export default {
             x: 0,
             y: 0,
             width: 750,
-            height: 1165,
+            height: 1265,
             radius: 0,
-            content: "https://fp.yangcong345.com/middle/1.0.0/asset/hotel.png",
+            content: "https://fp.yangcong345.com/middle/1.0.0/hotel_new.png",
           },
           {
             type: "text",
             x: 68,
-            y: 148,
+            y: 248,
             width: 608,
             autoHeight: true,
             lineHeight: 1.6,
@@ -159,7 +159,7 @@ export default {
           {
             type: "img",
             x: 67.5,
-            y: 342,
+            y: 452,
             width: 615,
             height: 461.25,
             content: this.options.img_url,
@@ -168,7 +168,7 @@ export default {
           {
             type: "text",
             x: 66,
-            y: 840,
+            y: 950,
             width: 608,
             autoHeight: true,
             lineHeight: 1.6,
@@ -182,7 +182,7 @@ export default {
           {
             type: "text",
             x: 130,
-            y: 967,
+            y: 1067,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -196,7 +196,7 @@ export default {
           {
             type: "text",
             x: 130,
-            y: 1004,
+            y: 1104,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -210,7 +210,7 @@ export default {
           {
             type: "text",
             x: 130,
-            y: 1043,
+            y: 1143,
             width: 480,
             autoHeight: true,
             lineHeight: 1.6,
@@ -290,42 +290,5 @@ export default {
 };
 </script>
 
-<style>
-.upload-file {
-  position: relative;
-  width: 120px;
-  padding: 10px 15px;
-  border-radius: 5px;
-  background-color: rgb(245, 95, 55);
-  color: rgb(255, 255, 255);
-  font-size: 14px;
-  font-weight: bolder;
-  text-align: center;
-  overflow: hidden;
-  margin: 10px 0;
-}
-
-.upload-file span {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
-  color: #fff;
-}
-
-.upload-file:hover {
-  font-size: 14px;
-  border: none;
-}
-
-.upload-file input[type="file"] {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 1;
-  opacity: 0;
-  filter: alpha(opacity=0);
-  cursor: pointer;
-}
+<style> 
 </style>

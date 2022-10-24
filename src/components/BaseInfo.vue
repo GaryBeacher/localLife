@@ -76,7 +76,8 @@ export default {
             height: 1165,
             radius: 0,
             autoHeight: false,
-            content: "https://fp.yangcong345.com/middle/1.0.0/asset/baseInfo.png",
+            content:
+              "https://fp.yangcong345.com/middle/1.0.0/base_new.png",
           },
           {
             type: "text",
