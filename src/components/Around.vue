@@ -95,15 +95,16 @@
       <div class="input-item">
         <div class="input-name">
           <i>*</i> 9、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
-        </div>
-        <div class="upload-file custom-btn btn-4">
-          <input
-            type="file"
-            class="input-file"
-            @change="handleSuccess"
-            multiple="true"
-          />
-          <span class="tip" id="around-tip">点击上传图片</span>
+
+          <div class="upload-file">
+            <input
+              type="file"
+              class="input-file"
+              @change="handleSuccess"
+              multiple="true"
+            />
+            <span class="tip" :id="'around-tip' + id">点击上传图片</span>
+          </div>
         </div>
       </div>
       <button class="custom-btn btn-11" @click="saveImgToBoard">
@@ -125,7 +126,6 @@
 
 <script>
 //使用
- 
 
 export default {
   name: "Around",
@@ -324,7 +324,7 @@ export default {
       var reader = new FileReader();
       reader.onload = (data) => {
         this.options.img_url = data.target.result; // 图片赋值
-        var tip = document.querySelector("#around-tip");
+        var tip = document.querySelector("#around-tip" + this.id);
         tip.textContent = file.name;
       };
       reader.readAsDataURL(file);
@@ -347,7 +347,8 @@ export default {
       for (var i in options) {
         if (
           options[i] === "" ||
-          options["img_url"] === "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
+          options["img_url"] ===
+            "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
           options["des"].length < 10
         ) {
           this.$toast("每一项都需要按规则填写哦");
@@ -370,5 +371,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>

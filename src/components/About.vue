@@ -28,16 +28,16 @@
         </div>
         <div class="input-item">
           <div class="input-name">
-            <i>*</i> 3、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
-          </div>
-          <div class="upload-file custom-btn btn-4">
-            <input
-              type="file"
-              class="input-file"
-              @change="handleSuccess"
-              multiple="true"
-            />
-            <span class="tip">点击上传图片</span>
+            <i>*</i> 3、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span> 
+            <div class="upload-file">
+              <input
+                type="file"
+                class="input-file"
+                @change="handleSuccess"
+                multiple="true"
+              />
+              <span class="tip">点击上传图片</span>
+            </div>
           </div>
         </div>
         <button class="custom-btn btn-11" @click="saveImgToBoard">
@@ -53,7 +53,6 @@
 
 <script>
 //使用
- 
 
 export default {
   name: "about",
@@ -124,7 +123,7 @@ export default {
             x: 68,
             y: 959,
             width: 608,
-            height:280,
+            height: 280,
             autoHeight: true,
             lineHeight: 1.6,
             letterSpacing: "1px",
@@ -187,7 +186,8 @@ export default {
       for (var i in options) {
         if (
           options[i] === "" ||
-          options["img_url"] === "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
+          options["img_url"] ===
+            "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
           options["des"].length < 50 ||
           options["point"].length < 10
         ) {
@@ -199,6 +199,7 @@ export default {
         this.$emit("saveImgToDownLoad", {
           id: "aboutImg",
           options: this.options,
+          name: "关于本店",
         });
         this.$toast("保存成功");
         this.saveStatus = true;
@@ -210,5 +211,4 @@ export default {
 };
 </script>
 
-<style> 
-</style>
+<style></style>

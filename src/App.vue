@@ -5,7 +5,7 @@
         :href="'#' + item.id"
         class="action"
         v-for="item in hotelArr"
-        :key="item.id + Math.random()"
+        :key="item.id + 123"
       >
         {{ item.name }}
       </a>
@@ -13,7 +13,7 @@
         :href="'#' + item.id"
         class="action"
         v-for="item in aroundArr"
-        :key="item.id + Math.random()"
+        :key="item.id + 123"
       >
         {{ item.name }}
       </a>
@@ -21,7 +21,7 @@
         :href="'#' + item.id"
         class="action"
         v-for="item in signInArr"
-        :key="item.id + Math.random()"
+        :key="item.id + 123"
       >
         {{ item.name }}
       </a>
@@ -55,8 +55,8 @@
       <div class="add-new" @click="addSection('hotel')">新增模块</div>
     </h1>
     <template v-for="(item, index) in hotelArr">
-      <h2 :key="item.id + Math.random()">{{ item.name }}</h2>
-      <div class="section" :id="item.id" :key="item.id + Math.random()">
+      <h2 :key="item.id + 'hotel'">{{ item.name }}</h2>
+      <div class="section" :id="item.id" :key="item.id + 'hotel1'">
         <Hotel
           :id="item.id"
           :itemIndex="index"
@@ -70,7 +70,7 @@
         width="80%"
         color="#ccc"
         SIZE="1"
-        :key="item.id + Math.random()"
+        :key="item.id + 'hotel2'"
       />
     </template>
     <h1 class="module-title">
@@ -78,8 +78,8 @@
       <div class="add-new" @click="addSection('around')">新增模块</div>
     </h1>
     <template v-for="(item, index) in aroundArr">
-      <h2 :key="item.id + Math.random()">{{ item.name }}</h2>
-      <div class="section" :id="item.id" :key="item.id + Math.random()">
+      <h2 :key="item.id + 'around'">{{ item.name }}</h2>
+      <div class="section" :id="item.id" :key="item.id + 'around1'">
         <Around
           :id="item.id"
           :itemIndex="index"
@@ -93,7 +93,7 @@
         width="80%"
         color="#ccc"
         SIZE="1"
-        :key="item.id + Math.random()"
+        :key="item.id + 'around2'"
       />
     </template>
     <h1 class="module-title">
@@ -101,8 +101,8 @@
       <div class="add-new" @click="addSection('signIn')">新增模块</div>
     </h1>
     <template v-for="(item, index) in signInArr">
-      <h2 :key="item.id + Math.random()">{{ item.name }}</h2>
-      <div :key="item.id + Math.random()" class="section" :id="item.id">
+      <h2 :key="item.id + 'signIn'">{{ item.name }}</h2>
+      <div :key="item.id + 'signIn2'" class="section" :id="item.id">
         <SignIn
           :id="item.id"
           :itemIndex="index"
@@ -113,7 +113,7 @@
       </div>
       <hr
         align="center"
-        :key="item.id + Math.random()"
+        :key="item.id + 'signIn3'"
         width="80%"
         color="#ccc"
         SIZE="1"
@@ -130,7 +130,7 @@
         <div class="board-list-box">
           <div
             v-for="item in boardList"
-            :key="item.id + Math.random()"
+            :key="item.id"
             @click="changeChecked(item)"
             :class="{
               'swiper-slide': true,
@@ -143,10 +143,16 @@
         <div class="make-board" @click="makeBoard">生成展板</div>
       </div>
       <div class="display-board" v-if="showDownload">
+        <div class="loading" v-if="loading">
+          <hr />
+          <hr />
+          <hr />
+          <hr />
+        </div>
         <div class="board-box">
           <div class="back-board-list" @click="backToBoardList">返回</div>
           <img src="" alt="" id="boardImg" />
-          <div class="download" @click="downImg">打包下载</div>
+          <button class="custom-btn btn-11 download" @click="downImg">打包下载</button>
         </div>
       </div>
     </div>
@@ -181,6 +187,7 @@ export default {
       selectedBoards: [],
       showBoardList: false,
       showDownload: false,
+      loading: false,
     };
   },
   mounted() {
@@ -253,6 +260,7 @@ export default {
       }
     },
     saveImgToDownLoad({ id, options, name }) {
+      console.log(name)
       var img = document.getElementById(id);
       const item = {
         id,
@@ -308,6 +316,7 @@ export default {
     },
     makeBoard() {
       this.showDownload = true;
+      this.loading = true;
       if (this.selectedBoards.length < 3) {
         this.$toast("必须要选择三个哦～");
         return;
@@ -338,7 +347,8 @@ export default {
                 width: 1420,
                 height: 455,
                 radius: 0,
-                content: "https://fp.yangcong345.com/middle/1.0.0/asset/hotelBoard.jpg",
+                content:
+                  "https://fp.yangcong345.com/middle/1.0.0/hotelBoard.jpg",
               },
               {
                 type: "text",
@@ -442,7 +452,8 @@ export default {
                 width: 1420,
                 height: 455,
                 radius: 0,
-                content: "https://fp.yangcong345.com/middle/1.0.0/asset/aroundBoard.jpg",
+                content:
+                  "https://fp.yangcong345.com/middle/1.0.0/aroundBoard.jpg",
               },
               {
                 type: "text",
@@ -574,7 +585,8 @@ export default {
                 width: 1420,
                 height: 455,
                 radius: 0,
-                content: "https://fp.yangcong345.com/middle/1.0.0/asset/signInBoard.jpg",
+                content:
+                  "https://fp.yangcong345.com/middle/1.0.0/signInBoard.jpg",
               },
               {
                 type: "text",
@@ -693,7 +705,7 @@ export default {
               width: 1701,
               height: 2551,
               radius: 0,
-              content: "https://fp.yangcong345.com/middle/1.0.0/asset/board-bg.jpg",
+              content: "https://fp.yangcong345.com/middle/1.0.0/board-bg.jpg",
             },
             {
               type: "text",
@@ -749,6 +761,7 @@ export default {
                 id: "board-big-img",
               },
             ];
+            this.loading = false;
           },
           (err) => console.error(err)
         );
@@ -784,6 +797,8 @@ export default {
       } else {
         this.selectedBoards = [...this.selectedBoards, item.id];
       }
+      console.log(item)
+
     },
 
     getImgArrayBuffer(url) {
@@ -892,34 +907,9 @@ export default {
   align-items: center;
 }
 .board-box img {
-  width: 375px;
+  height: 75%;
 }
-
-.download {
-  width: 200px;
-}
-.download {
-  position: relative;
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 50px auto 0;
-  text-align: center;
-  border: 1px solid #f80;
-  color: #f80;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: 0.5s;
-  letter-spacing: 4px;
-  overflow: hidden;
-  cursor: pointer;
-}
-
-.download:hover {
-  background: #f80;
-  color: #fff;
-  box-shadow: 0 0 5px #f80, 0 0 25px #f80, 0 0 50px #f80, 0 0 200px #f80;
-  -webkit-box-reflect: below 1px linear-gradient(transparent, #0005);
-}
+  
 
 .swiper-slide {
   width: 300px;
@@ -939,5 +929,59 @@ export default {
   left: 30px;
   top: 30px;
   cursor: pointer;
+}
+.loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /*change these sizes to fit into your project*/
+  width: 100px;
+  height: 100px;
+}
+
+.loading hr {
+  border: 0;
+  margin: 0;
+  width: 40%;
+  height: 40%;
+  position: absolute;
+  border-radius: 50%;
+  animation: spin 2s ease infinite;
+}
+
+.loading :first-child {
+  background: #19a68c;
+  animation-delay: -1.5s;
+}
+
+.loading :nth-child(2) {
+  background: #f63d3a;
+  animation-delay: -1s;
+}
+
+.loading :nth-child(3) {
+  background: #fda543;
+  animation-delay: -0.5s;
+}
+
+.loading :last-child {
+  background: #193b48;
+}
+
+@keyframes spin {
+  0%,
+  100% {
+    transform: translate(0);
+  }
+  25% {
+    transform: translate(160%);
+  }
+  50% {
+    transform: translate(160%, 160%);
+  }
+  75% {
+    transform: translate(0, 160%);
+  }
 }
 </style>

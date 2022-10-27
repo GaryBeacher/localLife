@@ -62,16 +62,15 @@
       <div class="input-item">
         <div class="input-name">
           <i>*</i>6、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
-        </div>
-
-        <div class="upload-file custom-btn btn-4">
-          <input
-            type="file"
-            class="input-file"
-            @change="handleSuccess"
-            multiple="true"
-          />
-          <span class="tip" id="hotel-tip">点击上传图片</span>
+          <div class="upload-file">
+            <input
+              type="file"
+              class="input-file"
+              @change="handleSuccess"
+              multiple="true"
+            />
+            <span class="tip" :id="'hotel-tip' + id">点击上传图片</span>
+          </div>
         </div>
       </div>
       <button class="custom-btn btn-11" @click="saveImgToBoard">
@@ -92,7 +91,6 @@
 </template>
 
 <script>
- 
 export default {
   name: "Hotel",
   props: {
@@ -245,7 +243,7 @@ export default {
       var reader = new FileReader();
       reader.onload = (data) => {
         this.options.img_url = data.target.result;
-        var tip = document.querySelector("#hotel-tip");
+        var tip = document.querySelector("#hotel-tip" + this.id);
         tip.textContent = file.name;
       };
       reader.readAsDataURL(file);
@@ -267,7 +265,8 @@ export default {
       for (var i in options) {
         if (
           options[i] === "" ||
-          options["img_url"] === "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
+          options["img_url"] ===
+            "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
           options["des"].length < 10
         ) {
           this.$toast("每一项都需要按规则填写哦");
@@ -290,5 +289,4 @@ export default {
 };
 </script>
 
-<style> 
-</style>
+<style></style>

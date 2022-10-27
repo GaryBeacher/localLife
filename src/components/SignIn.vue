@@ -74,7 +74,7 @@
       </div>
       <div class="input-item">
         <div class="input-name">
-          <i>*</i> 7、详细介绍<span>（字数最多18个）</span>
+          <i>*</i> 7、亮点介绍<span>（字数最多18个）</span>
         </div>
         <textarea
           maxlength="18"
@@ -86,16 +86,17 @@
       <div class="input-item">
         <div class="input-name">
           <i>*</i> 9、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
-        </div>
-        <div class="upload-file custom-btn btn-4">
+          <div class="upload-file">
           <input
             type="file"
             class="input-file"
             @change="handleSuccess"
             multiple="true"
           />
-          <span class="tip" id="signIn-tip">点击上传图片</span>
+          <span class="tip" :id="'signIn-tip' + id">点击上传图片</span>
         </div>
+        </div>
+        
       </div>
       <button class="custom-btn btn-11" @click="saveImgToBoard">
         {{ saveStatus ? "已保存" : "保存" }}
@@ -116,7 +117,6 @@
 
 <script>
 //使用
- 
 
 export default {
   name: "SignIn",
@@ -289,17 +289,17 @@ export default {
     handleSuccess(e) {
       const file = e.target.files[0];
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
-        this.$toast("图片类型要求：jpeg、jpg、png" );
+        this.$toast("图片类型要求：jpeg、jpg、png");
         return false;
       }
       if (file.size / (1024 * 1024) > 2) {
-        this.$toast("图片大小不超过3M" );
+        this.$toast("图片大小不超过3M");
         return false;
       }
       var reader = new FileReader();
       reader.onload = (data) => {
         this.options.img_url = data.target.result;
-        var tip = document.querySelector("#signIn-tip");
+        var tip = document.querySelector("#signIn-tip" + this.id);
         tip.textContent = file.name;
       };
       reader.readAsDataURL(file);
@@ -309,7 +309,7 @@ export default {
       switch (type) {
         case "des":
           if (this.options.des.length < 10) {
-            this.$toast("亮点介绍至少要10个字" );
+            this.$toast("亮点介绍至少要10个字");
           }
           break;
       }
@@ -322,10 +322,11 @@ export default {
       for (var i in options) {
         if (
           options[i] === "" ||
-          options["img_url"] === "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
+          options["img_url"] ===
+            "https://fp.yangcong345.com/middle/1.0.0/asset/blank.png" ||
           options["des"].length < 10
         ) {
-          this.$toast( "每一项都需要按规则填写哦" );
+          this.$toast("每一项都需要按规则填写哦");
           return;
         }
       }
@@ -336,7 +337,7 @@ export default {
           name: `城市必打卡${this.itemIndex === 0 ? "" : this.itemIndex}`,
         });
 
-        this.$toast( "保存成功" );
+        this.$toast("保存成功");
         this.saveStatus = true;
       } else {
         this.$toast("当前图片已经保存过了，请重新修改后重试");
@@ -346,5 +347,4 @@ export default {
 };
 </script>
 
-<style> 
-</style>
+<style></style>
