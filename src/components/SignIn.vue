@@ -87,16 +87,15 @@
         <div class="input-name">
           <i>*</i> 9、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
           <div class="upload-file">
-          <input
-            type="file"
-            class="input-file"
-            @change="handleSuccess"
-            multiple="true"
-          />
-          <span class="tip" :id="'signIn-tip' + id">点击上传图片</span>
+            <input
+              type="file"
+              class="input-file"
+              @change="handleSuccess"
+              multiple="true"
+            />
+            <span class="tip" :id="'signIn-tip' + id">点击上传图片</span>
+          </div>
         </div>
-        </div>
-        
       </div>
       <button class="custom-btn btn-11" @click="saveImgToBoard">
         {{ saveStatus ? "已保存" : "保存" }}
@@ -116,13 +115,12 @@
 </template>
 
 <script>
-//使用
-
 export default {
   name: "SignIn",
   props: {
     id: "",
     itemIndex: "",
+    cropedImg: {},
   },
   data() {
     return {
@@ -145,6 +143,14 @@ export default {
       handler() {
         this.drawImg();
         this.saveStatus = false;
+      },
+    },
+    cropedImg: {
+      deep: true,
+      handler() {
+        if (this.cropedImg.id === this.id) {
+          this.options.img_url = this.cropedImg.img;
+        }
       },
     },
   },
@@ -298,9 +304,11 @@ export default {
       }
       var reader = new FileReader();
       reader.onload = (data) => {
-        this.options.img_url = data.target.result;
-        var tip = document.querySelector("#signIn-tip" + this.id);
-        tip.textContent = file.name;
+        this.$emit("changeCropModel", {
+          status: true,
+          img: data.target.result,
+          id: this.id,
+        });  
       };
       reader.readAsDataURL(file);
     },

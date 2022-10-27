@@ -28,7 +28,7 @@
         </div>
         <div class="input-item">
           <div class="input-name">
-            <i>*</i> 3、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span> 
+            <i>*</i> 3、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
             <div class="upload-file">
               <input
                 type="file"
@@ -40,6 +40,7 @@
             </div>
           </div>
         </div>
+
         <button class="custom-btn btn-11" @click="saveImgToBoard">
           {{ saveStatus ? "已保存" : "保存" }}
         </button>
@@ -52,10 +53,11 @@
 </template>
 
 <script>
-//使用
-
 export default {
   name: "about",
+  props:{
+    cropedImg:{}
+  },
   data() {
     return {
       saveStatus: false,
@@ -72,6 +74,14 @@ export default {
       handler() {
         this.drawImg();
         this.saveStatus = false;
+      },
+    },
+    cropedImg: {
+      deep: true,
+      handler() { 
+        if(this.cropedImg.id==='about'){
+          this.options.img_url=this.cropedImg.img
+        }
       },
     },
   },
@@ -163,7 +173,6 @@ export default {
       // 限制上传图片类型
       if (!/\.(jpg|jpeg|png|JPG|PNG)$/.test(e.target.value)) {
         this.$toast("图片类型要求：jpeg、jpg、png");
-
         return false;
       }
       // 图片大小不超过1M
@@ -174,9 +183,12 @@ export default {
       // 文件转化base64格式，用于页面预览（或调用接口上传图片，获取图片地址，再赋值
       var reader = new FileReader();
       reader.onload = (data) => {
-        this.options.img_url = data.target.result; // 图片赋值
-        var tip = document.querySelector(".tip");
-        tip.textContent = file.name;
+        // this.options.img_url = data.target.result;
+        this.$emit("changeCropModel", {
+          status: true,
+          img: data.target.result,
+          id: "about",
+        }); 
       };
       reader.readAsDataURL(file);
     },

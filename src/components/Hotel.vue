@@ -96,6 +96,7 @@ export default {
   props: {
     id: "",
     itemIndex: "",
+    cropedImg: {},
   },
   data() {
     return {
@@ -116,6 +117,14 @@ export default {
       handler() {
         this.drawImg();
         this.saveStatus = false;
+      },
+    },
+    cropedImg: {
+      deep: true,
+      handler() {
+        if (this.cropedImg.id === this.id) {
+          this.options.img_url = this.cropedImg.img;
+        }
       },
     },
   },
@@ -242,9 +251,11 @@ export default {
       }
       var reader = new FileReader();
       reader.onload = (data) => {
-        this.options.img_url = data.target.result;
-        var tip = document.querySelector("#hotel-tip" + this.id);
-        tip.textContent = file.name;
+        this.$emit("changeCropModel", {
+          status: true,
+          img: data.target.result,
+          id: this.id,
+        }); 
       };
       reader.readAsDataURL(file);
     },

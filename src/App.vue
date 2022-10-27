@@ -47,7 +47,11 @@
     <hr align="center" width="80%" color="#ccc" SIZE="1" />
 
     <h1>关于本店</h1>
-    <About @saveImgToDownLoad="saveImgToDownLoad" />
+    <About
+      @changeCropModel="changeCropModel"
+      :cropedImg="cropedImg"
+      @saveImgToDownLoad="saveImgToDownLoad"
+    />
     <hr align="center" width="80%" color="#ccc" SIZE="1" />
 
     <h1 class="module-title">
@@ -63,6 +67,8 @@
           :name="item.name"
           @removeSection="removeSection"
           @saveImgToBoard="saveImgToBoard"
+          @changeCropModel="changeCropModel"
+          :cropedImg="cropedImg"
         />
       </div>
       <hr
@@ -85,7 +91,9 @@
           :itemIndex="index"
           :name="item.name"
           @removeSection="removeSection"
-          @saveImgToBoard="saveImgToBoard"
+          @saveImgToBoard="saveImgToBoard" 
+          @changeCropModel="changeCropModel"
+          :cropedImg="cropedImg"
         />
       </div>
       <hr
@@ -109,6 +117,8 @@
           :name="item.name"
           @removeSection="removeSection"
           @saveImgToBoard="saveImgToBoard"
+          @changeCropModel="changeCropModel"
+          :cropedImg="cropedImg"
         />
       </div>
       <hr
@@ -152,10 +162,22 @@
         <div class="board-box">
           <div class="back-board-list" @click="backToBoardList">返回</div>
           <img src="" alt="" id="boardImg" />
-          <button class="custom-btn btn-11 download" @click="downImg">打包下载</button>
+          <button
+            class="custom-btn btn-11 download"
+            v-if="!loading"
+            @click="downImg"
+          >
+            打包下载
+          </button>
         </div>
       </div>
     </div>
+    <CropImg
+      v-if="cropImgStatus"
+      :cropProps="cropProps"
+      @changeCropModel="changeCropModel"
+      @setCropImg="setCropImg"
+    />
   </div>
 </template>
 
@@ -169,12 +191,22 @@ import Hotel from "./components/Hotel.vue";
 import Around from "./components/Around.vue";
 import MyCheckBox from "./components/MyCheckBox.vue";
 import SignIn from "./components/SignIn.vue";
+import CropImg from "./components/CropImg.vue";
 import json2image from "./utils/index";
 
 let time = true;
 export default {
   name: "app",
-  components: { Banner, BaseInfo, About, Hotel, Around, SignIn, MyCheckBox },
+  components: {
+    CropImg,
+    Banner,
+    BaseInfo,
+    About,
+    Hotel,
+    Around,
+    SignIn,
+    MyCheckBox,
+  },
   data() {
     return {
       isfixTab: false,
@@ -188,6 +220,15 @@ export default {
       showBoardList: false,
       showDownload: false,
       loading: false,
+      cropImgStatus: false,
+      cropedImg: {
+        img: "",
+        id: "",
+      },
+      cropProps: {
+        img: "",
+        id: "",
+      },
     };
   },
   mounted() {
@@ -198,6 +239,14 @@ export default {
     next();
   },
   methods: {
+    setCropImg({ status, img, id }) {
+      this.cropedImg = { img, id };
+      this.cropImgStatus = status;
+    },
+    changeCropModel({ status, img, id }) { 
+      this.cropProps = { img, id };
+      this.cropImgStatus = status;
+    },
     handleTabFix() {
       var scrollTop =
         window.pageYOffset ||
@@ -260,7 +309,6 @@ export default {
       }
     },
     saveImgToDownLoad({ id, options, name }) {
-      console.log(name)
       var img = document.getElementById(id);
       const item = {
         id,
@@ -797,8 +845,6 @@ export default {
       } else {
         this.selectedBoards = [...this.selectedBoards, item.id];
       }
-      console.log(item)
-
     },
 
     getImgArrayBuffer(url) {
@@ -909,7 +955,6 @@ export default {
 .board-box img {
   height: 75%;
 }
-  
 
 .swiper-slide {
   width: 300px;
