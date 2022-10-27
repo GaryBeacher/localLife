@@ -36,8 +36,7 @@
           type="text"
           v-model="options.person"
         />
-      </div>
-
+      </div> 
       <div class="input-item">
         <div class="input-name">
           <i>*</i> 4、距离酒店<span>（字数最多18个）</span>
@@ -59,8 +58,7 @@
           type="text"
           v-model="options.traffic"
         />
-      </div>
-
+      </div> 
       <div class="input-item">
         <div class="input-name">
           <i>*</i> 6、营业时间<span>（字数最多18个）</span>
@@ -74,18 +72,19 @@
       </div>
       <div class="input-item">
         <div class="input-name">
-          <i>*</i> 7、亮点介绍<span>（字数最多18个）</span>
+          <i>*</i> 7、详细介绍<span>（字数限制22-88个）</span>
         </div>
         <textarea
-          maxlength="18"
+          maxlength="88"
           class="input-info"
+          v-on:blur="onInputBlur('per')"
           type="text"
           v-model="options.per"
         />
       </div>
       <div class="input-item">
         <div class="input-name">
-          <i>*</i> 9、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
+          <i>*</i> 8、上传图片<span>（照片比例为4:3，大小限制为0.3-2M）</span>
           <div class="upload-file">
             <input
               type="file"
@@ -304,11 +303,12 @@ export default {
       }
       var reader = new FileReader();
       reader.onload = (data) => {
+        this.$toast('图片裁切可以通过鼠标滚轮放大缩小图片～')
         this.$emit("changeCropModel", {
           status: true,
           img: data.target.result,
           id: this.id,
-        });  
+        });
       };
       reader.readAsDataURL(file);
     },
@@ -318,6 +318,11 @@ export default {
         case "des":
           if (this.options.des.length < 10) {
             this.$toast("亮点介绍至少要10个字");
+          }
+          break;
+        case "per":
+          if (this.options.des.length < 22) {
+            this.$toast("详细介绍至少要22个字");
           }
           break;
       }

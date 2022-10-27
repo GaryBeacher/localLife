@@ -26,6 +26,7 @@ div {
   background-color: #424242;
   border-radius: 5px;
   text-align: center;
+  z-index: 9999;
   transform: translate(-50%, -50%);
 }
 /* vue动画过渡效果设置 */

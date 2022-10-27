@@ -46,11 +46,11 @@ export default {
         info: true, // 裁剪框的大小信息
         outputSize: 1, // 裁剪生成图片的质量
         outputType: "jpeg", // 裁剪生成图片的格式
-        canScale: false, // 图片是否允许滚轮缩放
+        canScale: true, // 图片是否允许滚轮缩放
         autoCrop: true, // 是否默认生成截图框
         autoCropWidth: 400, // 默认生成截图框宽度
         autoCropHeight: 300, // 默认生成截图框高度
-        fixedBox: true, // 固定截图框大小 不允许改变
+        fixedBox: false, // 固定截图框大小 不允许改变
         fixed: true, // 是否开启截图框宽高固定比例
         fixedNumber: [4, 3], // 截图框的宽高比例
         full: false, // 是否输出原图比例的截图

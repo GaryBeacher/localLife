@@ -43,7 +43,7 @@ export default {
   opacity: 0;
   position:absolute;
   right:0;
-  background: #f80;
+  background: #f55f37;
   color:#fff;
   border-radius: 4px 0 0 0 ;
   bottom:0;
@@ -68,6 +68,5 @@ export default {
 }
 label span {
   margin-left: 10px;
-}
- 
+} 
 </style>

@@ -91,7 +91,7 @@
           :itemIndex="index"
           :name="item.name"
           @removeSection="removeSection"
-          @saveImgToBoard="saveImgToBoard" 
+          @saveImgToBoard="saveImgToBoard"
           @changeCropModel="changeCropModel"
           :cropedImg="cropedImg"
         />
@@ -137,6 +137,10 @@
     <div class="section board-list" v-if="showBoardList">
       <div class="mask" @click="close"></div>
       <div class="display-board" v-if="!showDownload">
+        <div class="close-button" @click="close">X</div>
+        <div class="topic-title">
+          点击图片选择3个模块添加到展板，请注意：“酒店特色服务”只能选择一个模块哦
+        </div>
         <div class="board-list-box">
           <div
             v-for="item in boardList"
@@ -243,7 +247,7 @@ export default {
       this.cropedImg = { img, id };
       this.cropImgStatus = status;
     },
-    changeCropModel({ status, img, id }) { 
+    changeCropModel({ status, img, id }) {
       this.cropProps = { img, id };
       this.cropImgStatus = status;
     },
@@ -831,7 +835,7 @@ export default {
         this.$toast("已经选择三个展板，请取消后再次选择");
         return;
       }
-      if (hasHotel && item.id.indexOf("hotel") != -1) {
+      if (!item.checked && hasHotel && item.id.indexOf("hotel") != -1) {
         this.$toast("酒店特色服务最多只能选择一个模块哦");
         return;
       }
@@ -895,13 +899,12 @@ export default {
 </script>
 <style>
 .display-board {
-  width: 90%;
+  width: 80%;
   height: 80%;
   margin: 0px auto;
   display: flex;
   background: #f2f2f0;
-  overflow-x: hidden;
-  overflow-y: scroll;
+  padding: 0 50px;
   align-items: center;
   position: relative;
   flex-direction: column;
@@ -918,11 +921,27 @@ export default {
   justify-content: space-around;
   margin: 20px 0 0;
 }
-
+.close-button {
+  position: absolute;
+  right: -30px;
+  top: -5px;
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
+}
+.topic-title {
+  width: 100%;
+  text-align: left;
+  font-size: 16px;
+  color: #333;
+  margin: 30px;
+  padding: 0 30px;
+  font-weight: bolder;
+}
 .make-board {
   height: 50px;
   width: 200px;
-  background: rgb(255, 136, 0);
+  background: #f55f37;
   display: flex;
   justify-content: space-around;
   align-items: center;
@@ -933,10 +952,10 @@ export default {
   cursor: pointer;
 }
 .board-img-box:hover {
-  border: 2px solid #f80;
+  border: 2px solid #f55f37;
 }
 .checked .board-img-box {
-  border: 2px solid #f80;
+  border: 2px solid #f55f37;
 }
 .checked .board-img-box div {
   opacity: 1;
