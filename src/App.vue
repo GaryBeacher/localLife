@@ -1,6 +1,27 @@
 <template>
   <div>
+    <div class="guide-mask" v-if="showGuide">
+      <div class="guide-box" v-if="showGuide">
+        <div class="close-button" @click="closeGuide">X</div>
+        <h3>使用步骤</h3>
+        <pre>
+          1、当前页面所有模块从上到下每个模块都必须填写。
+          2、除了“基本信息“和“关于本店“外，<i>酒店特色服务</i> ，<i>周边吃喝玩乐</i> ，<i>城市必打卡</i>三个模块都可以点击各自头部旁边的按钮来新增一个同类型的模块。
+          3、新增的模块可以在当前模块的底部使用删除模块按钮删除当前模块。
+          4、每个模块中所有的事项都需要按照标题旁边的规则仔细填写，如果当前模块保存时出现 <i>每一项都需要按规则填写哦</i>的提示时，需要检查是否有选项未按照规则填写。
+          5、每个模块在填写完成后都需要<i>点击保存按钮</i>才能保证当前模块在最后的展板列表中出现。
+          6、每个模块在保存后还是可以再修改，修改完毕后需要再次点击保存才能更新。
+          7、选择展板的时候要注意<i>酒店特色服务</i> 模块最多只可以选择一个。
+          8、必须选择三个展板，才可以生成展板预览图。 
+        </pre>
+      </div>
+    </div>
     <div class="left-menu" v-if="isfixTab">
+      <img
+        src="https://fp.yangcong345.com/middle/1.0.0/WeChatd602d8b4f086c6aa98435c5392a30bed.png"
+        alt=""
+      />
+      <div @click="closeGuide">使用步骤</div>
       <a
         :href="'#' + item.id"
         class="action"
@@ -44,7 +65,7 @@
     </ul>
     <h1>基本信息</h1>
     <BaseInfo @saveImgToDownLoad="saveImgToDownLoad" />
-    <hr align="center" width="80%" color="#ccc" SIZE="1" />
+    <hr align="center" width="100%" color="#ccc" SIZE="1" />
 
     <h1>关于本店</h1>
     <About
@@ -52,7 +73,7 @@
       :cropedImg="cropedImg"
       @saveImgToDownLoad="saveImgToDownLoad"
     />
-    <hr align="center" width="80%" color="#ccc" SIZE="1" />
+    <hr align="center" width="100%" color="#ccc" SIZE="1" />
 
     <h1 class="module-title">
       酒店特色服务
@@ -73,7 +94,7 @@
       </div>
       <hr
         align="center"
-        width="80%"
+        width="100%"
         color="#ccc"
         SIZE="1"
         :key="item.id + 'hotel2'"
@@ -98,7 +119,7 @@
       </div>
       <hr
         align="center"
-        width="80%"
+        width="100%"
         color="#ccc"
         SIZE="1"
         :key="item.id + 'around2'"
@@ -124,12 +145,12 @@
       <hr
         align="center"
         :key="item.id + 'signIn3'"
-        width="80%"
+        width="100%"
         color="#ccc"
         SIZE="1"
       />
     </template>
-    <div class="section">
+    <div class="submit-cont">
       <button class="custom-btn btn-4 submit" @click="createBoardList">
         提交
       </button>
@@ -233,6 +254,7 @@ export default {
         img: "",
         id: "",
       },
+      showGuide: false,
     };
   },
   mounted() {
@@ -243,6 +265,9 @@ export default {
     next();
   },
   methods: {
+    closeGuide() {
+      this.showGuide = !this.showGuide;
+    },
     setCropImg({ status, img, id }) {
       this.cropedImg = { img, id };
       this.cropImgStatus = status;
