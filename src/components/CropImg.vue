@@ -122,11 +122,9 @@ export default {
   display: flex;
   justify-content: center;
 }
-.cropperContent {
-  width: 300px;
-  height: 300px;
-  width: 800px;
-  height: 600px;
+.cropperContent { 
+  width: 70%;
+  height: 50%;
 }
 .button-box {
   width: 300px;
@@ -136,5 +134,6 @@ export default {
 }
 .button-box button {
   flex: 1;
+    margin-top: 20px;
 }
 </style>
