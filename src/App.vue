@@ -152,7 +152,7 @@
     </template>
     <div class="submit-cont">
       <button class="custom-btn btn-4 submit" @click="createBoardList">
-        提交
+        下一步
       </button>
     </div>
     <div class="section board-list" v-if="showBoardList">
@@ -767,6 +767,7 @@ export default {
           );
         }
       }
+      console.log('选择的展板：',this.selectedBoards)
       setTimeout(() => {
         const data = {
           width: 1701,
