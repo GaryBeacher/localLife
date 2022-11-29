@@ -92,7 +92,7 @@ acronym {
 .section {
   position: relative;
   scroll-margin-top: 170px;
-
+  padding-left:10vw;
   display: flex;
   align-items: center;
   justify-content: end;
